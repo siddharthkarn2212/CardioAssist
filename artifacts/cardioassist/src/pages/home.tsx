@@ -19,8 +19,8 @@ export function HomePage() {
     },
     {
       icon: Brain,
-      title: "Interpretable AI",
-      desc: "Uses Logistic Regression for full transparency. See exactly which factors are driving your risk score, not a black-box answer.",
+      title: "Transparent Predictions",
+      desc: "Uses Logistic Regression for full interpretability. See exactly which clinical factors are driving the risk score — not a black-box answer.",
       color: "text-blue-600",
       bg: "bg-blue-600/10",
     },
@@ -70,15 +70,15 @@ export function HomePage() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
-            Predict Heart Risk<br />
+            Predict Heart Disease Risk<br />
             <span className="text-transparent bg-clip-text" style={{backgroundImage: "linear-gradient(90deg, #2dd4bf, #38bdf8)"}}>
-              With Precision AI
+              with Precision
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-300/90 max-w-2xl leading-relaxed">
-            CardioAssist analyzes 13 clinical parameters using a trained Logistic Regression model
-            to assess your cardiovascular risk — instantly and transparently.
+            CardioAssist analyzes 13 clinical parameters using a validated machine learning model
+            to assess cardiovascular risk accurately and transparently.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
