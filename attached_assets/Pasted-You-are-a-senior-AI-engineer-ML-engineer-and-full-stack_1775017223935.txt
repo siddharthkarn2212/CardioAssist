@@ -1,0 +1,158 @@
+You are a senior AI engineer, ML engineer, and full-stack developer. Build a production-grade SaaS application called "CardioAssist AI".
+
+This is a FULL MACHINE LEARNING BASED PRODUCT. The ML pipeline must be correct, clear, and production-ready.
+
+🔷 CORE OBJECTIVE
+
+Build a full-stack ML SaaS platform that:
+
+Predicts heart disease risk
+Uses a trained machine learning model
+Returns prediction + probability
+Shows analytics and explanation
+🔷 TECH STACK (STRICTLY FOLLOW)
+
+BACKEND:
+
+Python
+FastAPI
+Uvicorn
+
+MACHINE LEARNING:
+
+scikit-learn (PRIMARY ML LIBRARY)
+pandas (data handling)
+numpy (numerical ops)
+joblib or pickle (model saving/loading)
+
+FRONTEND:
+
+React (Vite)
+Tailwind CSS
+Axios (API calls)
+🔷 DATASET INSTRUCTIONS
+Use uploaded file: "heart_disease.csv"
+Dataset has:
+303 rows
+14 columns
+Target column = "output"
+
+Feature columns:
+age, sex, cp, trtbps, chol, fbs, restecg, thalachh,
+exng, oldpeak, slp, caa, thall
+
+🔷 MACHINE LEARNING PIPELINE (VERY IMPORTANT)
+Load dataset using pandas
+Split into:
+X = features
+y = output
+Perform:
+Train-test split (test_size=0.2, random_state=42)
+Apply scaling:
+Use StandardScaler (important for consistency)
+MODEL SELECTION (STRICT RULE):
+Use ONLY Logistic Regression
+Do NOT use multiple models
+Do NOT use deep learning
+
+Reason:
+
+Logistic Regression is chosen for interpretability and performance
+Train model:
+model = LogisticRegression(max_iter=1000)
+Evaluate model:
+accuracy_score
+precision_score
+recall_score
+f1_score
+Save model:
+Save trained model as "model.pkl"
+🔷 BACKEND (FASTAPI)
+
+Create clean API:
+
+GET /
+→ returns "API is running"
+
+POST /predict
+Input:
+{
+"age": int,
+"sex": int,
+...
+}
+
+Process:
+
+Convert input to numpy array
+Apply SAME scaler used during training
+Predict using model
+Use predict_proba()
+
+Output:
+{
+"prediction": "High Risk" or "Low Risk",
+"probability": 0.78
+}
+
+GET /metrics
+→ return model evaluation scores
+🔷 FRONTEND (REACT + TAILWIND)
+
+Build premium SaaS UI:
+
+PAGES:
+
+Landing Page
+Product intro
+CTA button
+Dashboard
+Input form (all features)
+Submit → API call
+Show:
+Prediction result
+Probability (progress bar)
+Color indicator (green/red)
+Analytics Section
+Show model metrics
+About Section
+Explain ML model simply
+
+UI FEATURES:
+
+Responsive design
+Card-based layout
+Loading spinner
+Error handling
+🔷 EXPLAINABILITY (IMPORTANT)
+Extract Logistic Regression coefficients
+Show top 3 important features affecting prediction
+Display them in UI
+🔷 PROJECT STRUCTURE
+
+backend/
+main.py
+model.pkl
+scaler.pkl
+
+frontend/
+React app
+
+data/
+heart_disease.csv
+
+🔷 IMPORTANT RULES
+Use ONLY Logistic Regression
+Use StandardScaler
+Keep code modular and clean
+Add comments
+Ensure everything runs correctly
+No unnecessary complexity
+🔷 FINAL OUTPUT
+Fully working FastAPI backend
+Fully working React frontend
+ML model trained and integrated
+API connected to frontend
+Clean SaaS-level UI
+
+Build this like a real startup ML product, not a college project.

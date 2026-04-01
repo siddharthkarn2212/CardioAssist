@@ -3,13 +3,15 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: CardioAssist AI API specification
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: ml
+    description: Machine learning predictions
 paths:
   /healthz:
     get:
@@ -24,6 +26,47 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /ml/predict:
+    post:
+      operationId: predictHeartDisease
+      tags: [ml]
+      summary: Predict heart disease risk
+      description: Returns prediction and probability for heart disease risk
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PredictInput"
+      responses:
+        "200":
+          description: Prediction result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PredictOutput"
+        "422":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationError"
+
+  /ml/metrics:
+    get:
+      operationId: getModelMetrics
+      tags: [ml]
+      summary: Get model evaluation metrics
+      description: Returns model accuracy, precision, recall, f1 score and top features
+      responses:
+        "200":
+          description: Model metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MetricsOutput"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +77,147 @@ components:
       required:
         - status
 
+    PredictInput:
+      type: object
+      required:
+        - age
+        - sex
+        - cp
+        - trtbps
+        - chol
+        - fbs
+        - restecg
+        - thalachh
+        - exng
+        - oldpeak
+        - slp
+        - caa
+        - thall
+      properties:
+        age:
+          type: integer
+          description: Age in years
+          minimum: 1
+          maximum: 120
+        sex:
+          type: integer
+          description: Sex (1=male, 0=female)
+          minimum: 0
+          maximum: 1
+        cp:
+          type: integer
+          description: Chest pain type (0-3)
+          minimum: 0
+          maximum: 3
+        trtbps:
+          type: integer
+          description: Resting blood pressure (mm Hg)
+          minimum: 50
+          maximum: 300
+        chol:
+          type: integer
+          description: Serum cholesterol (mg/dl)
+          minimum: 100
+          maximum: 600
+        fbs:
+          type: integer
+          description: Fasting blood sugar > 120 mg/dl (1=true, 0=false)
+          minimum: 0
+          maximum: 1
+        restecg:
+          type: integer
+          description: Resting ECG results (0-2)
+          minimum: 0
+          maximum: 2
+        thalachh:
+          type: integer
+          description: Maximum heart rate achieved
+          minimum: 50
+          maximum: 250
+        exng:
+          type: integer
+          description: Exercise induced angina (1=yes, 0=no)
+          minimum: 0
+          maximum: 1
+        oldpeak:
+          type: number
+          description: ST depression induced by exercise
+          minimum: 0.0
+          maximum: 10.0
+        slp:
+          type: integer
+          description: Slope of peak exercise ST segment (0-2)
+          minimum: 0
+          maximum: 2
+        caa:
+          type: integer
+          description: Number of major vessels (0-4)
+          minimum: 0
+          maximum: 4
+        thall:
+          type: integer
+          description: Thalassemia (0-3)
+          minimum: 0
+          maximum: 3
+
+    PredictOutput:
+      type: object
+      required:
+        - prediction
+        - probability
+        - risk_score
+      properties:
+        prediction:
+          type: string
+          description: "High Risk or Low Risk"
+        probability:
+          type: number
+          description: Probability of high risk (0-1)
+        risk_score:
+          type: number
+          description: Risk score as percentage (0-100)
+
+    TopFeature:
+      type: object
+      required:
+        - feature
+        - coefficient
+      properties:
+        feature:
+          type: string
+        coefficient:
+          type: number
+
+    MetricsOutput:
+      type: object
+      required:
+        - accuracy
+        - precision
+        - recall
+        - f1_score
+        - test_size
+        - train_size
+        - top_features
+      properties:
+        accuracy:
+          type: number
+        precision:
+          type: number
+        recall:
+          type: number
+        f1_score:
+          type: number
+        test_size:
+          type: integer
+        train_size:
+          type: integer
+        top_features:
+          type: array
+          items:
+            $ref: "#/components/schemas/TopFeature"
+
+    ValidationError:
+      type: object
+      properties:
+        detail:
+          type: string
