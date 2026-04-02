@@ -1,0 +1,10 @@
+{
+  "name": "cardioassist-backend",
+  "version": "1.0.0",
+  "description": "CardioAssist ML backend — FastAPI + scikit-learn",
+  "scripts": {
+    "start": "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}",
+    "dev": "uvicorn main:app --host 0.0.0.0 --port 8000 --reload",
+    "train": "python train_model.py"
+  }
+}
