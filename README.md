@@ -87,6 +87,4 @@ Vite proxies `/api/*` → `http://localhost:8000/*` in dev mode.
 }
 ```
 
----
-
 *For informational purposes only. Not a substitute for professional medical advice.*
